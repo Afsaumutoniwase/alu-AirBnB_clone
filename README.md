@@ -1,6 +1,7 @@
 # alu-AirBnB_clone
 ## AirBnB Clone
-Introduction
+### Introduction
+
 This repository contains the codebase of  initial stage of project to build a clone of the AirBnB website. We're creating a command interpreter to manage AirBnB objects. It will let us perform the following actionss creating, retrieving, updating, and deleting objects.
 
 # Repository Contents by Project Task
