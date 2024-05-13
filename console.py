@@ -166,6 +166,92 @@ class HBNBCommand(cmd.Cmd):
         print("Clear command to clear the screen")
 
     # commands to handle BaseModel
+    def do_BaseModel(self, arg):
+        """
+        Handles commands related to BaseModel.
+        Supports commands like:
+        - BaseModel.all()
+        - BaseModel.count()
+        - BaseModel.show(<id>)
+        - BaseModel.destroy(<id>)
+        - BaseModel.update(<id>, <attribute>, <value>)
+        """
+
+        # Split the argument into command and parameters
+        command, *params = arg.split()
+
+        # Handle different commands
+        if command == 'all':
+            # Handle BaseModel.all() command
+            # Retrieve all instances of BaseModel and print their string representations
+            storage = FileStorage()
+            storage.reload()
+            all_base_models = storage.all(BaseModel)
+            print([str(base_model) for base_model in all_base_models.values()])
+
+        elif command == 'count':
+            # Handle BaseModel.count() command
+            # Count the number of instances of BaseModel and print the count
+            storage = FileStorage()
+            storage.reload()
+            all_base_models = storage.all(BaseModel)
+            print(len(all_base_models))
+
+        elif command == 'show':
+            # Handle BaseModel.show(<id>) command
+            # Show the BaseModel instance with the specified id
+            if not params:
+                print("** id missing **")
+                return
+            id = params[0]
+            storage = FileStorage()
+            storage.reload()
+            all_base_models = storage.all(BaseModel)
+            key = "BaseModel." + id
+            if key in all_base_models:
+                print(all_base_models[key])
+            else:
+                print("** no instance found **")
+
+        elif command == 'destroy':
+            # Handle BaseModel.destroy(<id>) command
+            # Destroy the BaseModel instance with the specified id
+            if not params:
+                print("** id missing **")
+                return
+            id = params[0]
+            storage = FileStorage()
+            storage.reload()
+            all_base_models = storage.all(BaseModel)
+            key = "BaseModel." + id
+            if key in all_base_models:
+                del all_base_models[key]
+                storage.save()
+                print("Destroyed successfully!")
+            else:
+                print("** no instance found **")
+
+        elif command == 'update':
+            # Handle BaseModel.update(<id>, <attribute>, <value>) command
+            # Update the attribute of the BaseModel instance with the specified id
+            if len(params) < 3:
+                print("** Usage: update <id> <attribute> <value> **")
+                return
+            id, attribute, value = params
+            storage = FileStorage()
+            storage.reload()
+            all_base_models = storage.all(BaseModel)
+            key = "BaseModel." + id
+            if key in all_base_models:
+                base_model = all_base_models[key]
+                setattr(base_model, attribute, value)
+                base_model.save()
+            else:
+                print("** no instance found **")
+
+        else:
+            print("** Unknown command **")
+
 
     def do_create(self, args):
 
