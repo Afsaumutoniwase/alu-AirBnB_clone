@@ -13,6 +13,8 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 # models class stored in dict for easier access.
+
+
 classes = {
     "BaseModel": BaseModel,
     "User": User,
